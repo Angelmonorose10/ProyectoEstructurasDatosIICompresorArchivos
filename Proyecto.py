@@ -32,7 +32,7 @@ def SeleccionarImagen():
     imagen = filedialog.askopenfilename(defaultextension=".png", filetypes=[("Archivos de imagen", "*.png;*.jpg;*.jpeg;*.gif"), ("Todos los archivos", "*.*")])
     if imagen:
        MostrarImageSeleccionada.delete(0, "end")
-       MostrarImageSeleccionada.insert(0, f"Archivo de imagen seleccionado: {imagen}")
+       MostrarImageSeleccionada.insert(0,  imagen)
        
 # 3.- Audio. 
 
@@ -40,7 +40,7 @@ def SeleccionarArchivoAudio():
     audio = filedialog.askopenfilename(defaultextension=".mp3", filetypes=[("Archivos de audio", "*.mp3;*.wav"), ("Todos los archivos", "*.*")])
     if audio:
         MostrarAudioSeleccionado.delete(0, "end")
-        MostrarAudioSeleccionado.insert(0, f"Archivo de audio seleccionado: {audio}")
+        MostrarAudioSeleccionado.insert(0, audio)
         
 # Funciones de compresion de Archivos
 
