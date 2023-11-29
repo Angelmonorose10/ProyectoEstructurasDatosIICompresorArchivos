@@ -3,11 +3,9 @@ from tkinter import messagebox #Esta funcion aun no se usa
 from tkinter import filedialog
 from Huffman import HuffmanCoding
 
-
-
 # Funciones
 class Hman:
-    def __init__(self,root ):
+    def __init__(self, root ): 
         self.Huffman = HuffmanCoding()
         self.root = root
 
@@ -25,10 +23,7 @@ class Hman:
         # Inserta el nuevo contenido en el Entry
         self.MostrarArchivoTextoSeleccionado.insert(0, text)
         
-        self.Huffman.set_original_text(text)
-        self.Huffman.calculate_frequency_table()
-        self.Huffman.create_huffman_tree()
-        self.Huffman.calculate_table_conversion() 
+        self.Huffman.set_original_text(text) 
         
 #  Seleccion Imagen       
     def SeleccionarImagen():
@@ -46,15 +41,32 @@ class Hman:
                       
  # Compresor de archivos           
     def Comprimir(self):
-        TextoComprimido = self.Huffman.get_compressed_text()
-        print("Original text: ", self.Huffman.original_text)
-        print("Compressed text:", TextoComprimido)
+        if not self.Huffman.original_text:
+            messagebox.showwarning("Advertencia", "Por favor, seleccione un archivo antes de comprimir.")
+            return
+    
+        self.Huffman.calculate_frequency_table()
+        self.Huffman.create_huffman_tree()
+        self.Huffman.calculate_table_conversion()
+     
+        BitsComprimidos = self.Huffman.get_compressed_text()
         
-        archivo_guardado = filedialog.asksaveasfilename(defaultextension=".huf", filetypes=[("Archivos comprimidos", "*.huf"), ("Todos los archivos", "*.*")])
-        if archivo_guardado:
-            with open(archivo_guardado, 'w') as file:
-                file.write(TextoComprimido)            
+        
+        compressed_file_path = filedialog.asksaveasfilename(defaultextension=".huff", filetypes=[("Archivos Huffman", "*.huff")])
+        if compressed_file_path:
+            
+            with open(compressed_file_path, 'wb') as compressed_file:
+                compressed_file.write(BitsComprimidos.encode('utf-8'))
                 
+                
+                
+            original_size = len(self.Huffman.original_text)
+            compressed_size = len(BitsComprimidos.encode('utf-8'))  
+            return
+        original_size/compressed_size
+        
+           
+        
                 
                 
                 
