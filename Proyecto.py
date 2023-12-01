@@ -233,14 +233,14 @@ ArchivoMenu.add_separator()
 ArchivoMenu.add_command(label="Salir", command=root.quit)
 
 ImagenMenu = Menu(MenuBar, tearoff=0)
-ImagenMenu.add_command(label="Abrir Imagen", command=app.SeleccionarImagen)
-
+ImagenMenu.add_command(label="Abrir Imagen", command=app.SeleccionarArchivoImage)
+# Faltan las opiones de vieo
 AyudaMenu = Menu(MenuBar, tearoff=0)
 AyudaMenu.add_command(label="Ayuda", command=app.Ayuda)
 AyudaMenu.add_separator()
 
 AudioMenu = Menu(MenuBar, tearoff=0)
-AudioMenu.add_command(label="Abrir Audio")
+AudioMenu.add_command(label="Abrir Audio", comand=app.SeleccionarArchivoAudio)
 
 MenuBar.add_cascade(label="Archivo", menu=ArchivoMenu)
 MenuBar.add_cascade(label="Imagen", menu=ImagenMenu)
@@ -259,18 +259,25 @@ btnDescomprimirArchivosTexto = Button(
 )
 btnDescomprimirArchivosTexto.place(x=550, y=90)
 
-btnCompresioImagen = Button(root, text="Comprimir Imagen", bd=5, font=("arial 10"))
+btnCompresioImagen = Button(
+    root, text="Comprimir Imagen", bd=5, font=("arial 10"), command=app.Comprimir
+)
 btnCompresioImagen.place(x=200, y=200)
 
 btnDescomprimirImagen = Button(
-    root, text="Descomprimir Imagen", bd=5, font=("arial 10")
+    root, text="Descomprimir Imagen", bd=5, font=("arial 10"), command=app.Descomprimir
 )
 btnDescomprimirImagen.place(x=550, y=200)
 
-btnCompresioAudio = Button(root, text="Comprimir Audio", bd=5, font=("arial 10"))
+
+btnCompresioAudio = Button(
+    root, text="Comprimir Audio", bd=5, font=("arial 10"), command=app.Comprimir
+)
 btnCompresioAudio.place(x=200, y=300)
 
-btnDescomprimirAudio = Button(root, text="Descomprimir Audio", bd=5, font=("arial 10"))
+btnDescomprimirAudio = Button(
+    root, text="Descomprimir Audio", bd=5, font=("arial 10"), command=app.Descomprimir
+)
 btnDescomprimirAudio.place(x=550, y=300)
 
 
