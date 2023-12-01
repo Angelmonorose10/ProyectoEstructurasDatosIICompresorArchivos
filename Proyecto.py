@@ -3,6 +3,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 from Huffman import HuffmanCoding
 from PIL import Image, ImageTk
+import wave
 
 
 # Funciones
@@ -47,15 +48,16 @@ class Hman:
         )
         if audio:
             huffman_coder = HuffmanCoding()
-            with open(audio, "rb") as audio_file:
-                audio_data = audio_file.read()
-                print(audio_data)
+            with wave.open(audio, "rb") as audio_file:
+                audio_data = audio_file.getparams()
+                frames = audio_file.readframes(audio_data.nframes)
+                print(frames)
             messagebox.showinfo(
                 "Archivo de audio",
                 message="El archivo de audio fue seleccionado conrrectamente ",
             )
 
-            huffman_coder.set_original_text(audio_data)
+            huffman_coder.set_original_text(frames)
 
     def SeleccionarArchivoImage():
         image = filedialog.askopenfilename(
@@ -67,7 +69,7 @@ class Hman:
         )
         if image:
             huffman_coder = HuffmanCoding()
-            with open(image, "rb") as image_file:
+            with Image.open(image, "rb") as image_file:
                 image_data = image_file.read()
                 print(image_data)
             messagebox.showinfo(
