@@ -7,16 +7,17 @@ import wave
 import cv2
 import numpy as np
 import os
-import bitarray from bitarry
+from bitarray import bitarray
 
 # pip install wave
 # pip install opency-python
 # pip install bitarray
 
-#En este commit he intentado abrir los archivos separandolos frame a frame y también he creado una función
+# En este commit he intentado abrir los archivos separandolos frame a frame y también he creado una función
 # que permit (en teoría) llamara a la instamcia de despompresión de huffman para descomprimir archivos de texto
-# veré como implementarla para archivos de audio y tienes que instalar los pip que te dejé erriba, ya que he utilizado 
-#otras librerías especiales para abrir videos, fotos y audio 
+# veré como implementarla para archivos de audio y tienes que instalar los pip que te dejé erriba, ya que he utilizado
+# otras librerías especiales para abrir videos, fotos y audio
+
 
 # Funciones
 class Hman:
@@ -123,8 +124,6 @@ class Hman:
             video_data = np.array(frames)
             huffman_coder.set_original_text(video_data)
 
-            
-
     #########################################################################
 
     # Compresor de archivos
@@ -169,9 +168,10 @@ class Hman:
                 "Resumen",
                 f"Tamaño original: {original_size} bits\n Tamaño comprimido: {TamanioComprimido} bits\n Ratio de compresión: {Ratio}",
             )
-############################################################################
-#intento de descompresor de archivos
-#GMR
+
+    ############################################################################
+    # intento de descompresor de archivos
+    # GMR
 
     # Descompresor de archivos
     def DescomprimirArchivo(self):
@@ -185,40 +185,39 @@ class Hman:
         if archivo == "" or archivo is None:
             messagebox.showerror(
                 "Error", "No se ha elegido ningun archivo a descomprimir"
-                )
+            )
             return
         try:
-            with open(archivo, 'rb') as f:
+            with open(archivo, "rb") as f:
                 bits = BitArray(f.read())
 
         except Exception as e:
             print(e)
-            messagebox.showerror('Error', 'El archivo no es valido')
+            messagebox.showerror("Error", "El archivo no es valido")
             return
         # Crea una instancia del Huffman
         self.Descompressor = self.Huffman.descomprimir(bits)
         # Obtiene el resultado en formato string
-        
+
         # Mostrará el resultado en un cuadro de diálogo
         messagebox.showinfo(
             "Resultados",
-            "Se han descomprimido {} bytes".format(len(self.Descompressor))
-            )
+            "Se han descomprimido {} bytes".format(len(self.Descompressor)),
+        )
         # Guardar el resultado en un archivo
         ArchivoDescomprimido = filedialog.asksaveasfilename(
             initialdir=".",
             title=archivo,
             filetype=(("Text files", ".txt"),),
             defaultextension=".txt",
-            )
+        )
         if not ArchivoDescomprimido:
             return
         else:
-            with open(ArchivoDescomprimido, 'wb') as f:
-                f.write(bytes(Resultados, encoding='utf-8'))
-               
+            with open(ArchivoDescomprimido, "wb") as f:
+                f.write(bytes(self.Des, encoding="utf-8"))
 
-  ######################################################################################################      
+    ######################################################################################################
 
     # Otros comandos
     def Ayuda(self):
@@ -308,15 +307,19 @@ ArchivoMenu.add_separator()
 ArchivoMenu.add_command(label="Salir", command=root.quit)
 
 ImagenMenu = Menu(MenuBar, tearoff=0)
-ImagenMenu.add_command(label="Abrir Imagen", )
+ImagenMenu.add_command(
+    label="Abrir Imagen",
+)
 # Faltan las opiones de vieo
-#Se tienen que crear otras funciones especiales para descomprimir archivos de video, audio e imagen
+# Se tienen que crear otras funciones especiales para descomprimir archivos de video, audio e imagen
 AyudaMenu = Menu(MenuBar, tearoff=0)
 AyudaMenu.add_command(label="Ayuda", command=app.Ayuda)
 AyudaMenu.add_separator()
 
 AudioMenu = Menu(MenuBar, tearoff=0)
-AudioMenu.add_command(label="Abrir Audio", )
+AudioMenu.add_command(
+    label="Abrir Audio",
+)
 
 MenuBar.add_cascade(label="Archivo", menu=ArchivoMenu)
 MenuBar.add_cascade(label="Imagen", menu=ImagenMenu)
@@ -331,7 +334,11 @@ btnCompresioArchivosTexto = Button(
 btnCompresioArchivosTexto.place(x=200, y=90)
 
 btnDescomprimirArchivosTexto = Button(
-    root, text="Descomprimir Archivo", bd=5, font=("arial 10"), command=app.DescomprimirArchivo
+    root,
+    text="Descomprimir Archivo",
+    bd=5,
+    font=("arial 10"),
+    command=app.DescomprimirArchivo,
 )
 btnDescomprimirArchivosTexto.place(x=550, y=90)
 
@@ -341,7 +348,11 @@ btnCompresioImagen = Button(
 btnCompresioImagen.place(x=200, y=200)
 
 btnDescomprimirImagen = Button(
-    root, text="Descomprimir Imagen", bd=5, font=("arial 10"), command=app.DescomprimirArchivo
+    root,
+    text="Descomprimir Imagen",
+    bd=5,
+    font=("arial 10"),
+    command=app.DescomprimirArchivo,
 )
 btnDescomprimirImagen.place(x=550, y=200)
 
@@ -352,7 +363,11 @@ btnCompresioAudio = Button(
 btnCompresioAudio.place(x=200, y=300)
 
 btnDescomprimirAudio = Button(
-    root, text="Descomprimir Audio", bd=5, font=("arial 10"), command=app.DescomprimirArchivo
+    root,
+    text="Descomprimir Audio",
+    bd=5,
+    font=("arial 10"),
+    command=app.DescomprimirArchivo,
 )
 btnDescomprimirAudio.place(x=550, y=300)
 
