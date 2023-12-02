@@ -64,7 +64,10 @@ class Hman:
             with wave.open(audio, "rb") as audio_file:
                 audio_data = audio_file.getparams()
                 frames = audio_file.readframes(audio_data.nframes)
-                print(frames)
+                samplw_width = audio_file.getsampwidth()
+                framerate = audio_file.getframerate()
+                channels = audio_file.getnchannels()
+
             messagebox.showinfo(
                 "Archivo de audio",
                 message="El archivo de audio fue seleccionado conrrectamente ",
@@ -82,15 +85,15 @@ class Hman:
         )
         if image:
             huffman_coder = HuffmanCoding()
-            with Image.open(image, "rb") as image_file:
-                image_data = image_file.read()
-                print(image_data)
+            image_data = cv2.imread(image)
+            data = np.array(image_data)
+
             messagebox.showinfo(
                 "Archivo de imagen",
                 message="El archivo de imagen fue seleccionado conrrectamente ",
             )
 
-            huffman_coder.set_original_text(image_data)
+            huffman_coder.set_original_text(data)
 
     def SeleccionarArchivoVideo():
         video = filedialog.askopenfilename(
