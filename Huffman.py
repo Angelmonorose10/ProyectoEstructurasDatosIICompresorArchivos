@@ -43,6 +43,10 @@ class HuffmanCoding:
             HuffmanNode(key=freq, value=letter)
             for letter, freq in self.freq_table.items()
         ]
+        
+        if not elements:
+            return
+        
         heapq.heapify(elements)
 
         # Proceso para armar el árbol de Huffman
@@ -87,20 +91,30 @@ class HuffmanCoding:
         return ResultadoBitArray
 
     def descomprimir(self, compressed_text):
+        if not compressed_text:
+            return ""
+        
         actual = self.huffman_tree
         TextoDescomprimido = ""
 
         for bit in compressed_text:
             if bit == "0":
-                actual = actual.left_child
+                if actual and actual.left_child:
+                    actual = actual.left_child
             elif bit == "1":
-                actual = actual.right_child
-
-            if actual.value is not None:
-                TextoDescomprimido += actual.value
-                actual = self.huffman_tree
-
+                if actual and actual.right_child:
+                        actual = actual.right_child
+          
+                if actual and actual.value is not None:
+                    TextoDescomprimido += actual.value
+                    actual = self.huffman_tree
+                    
         return TextoDescomprimido
+                
+      
+    
+
+          
 
     # GMR 23:20
     ###################################################################################
@@ -199,4 +213,4 @@ class HuffmanCoding:
     # paso 8: meter_a_archivo(paso_7,"archivo.txt")
 
 
-#######################################################################################
+##########################################################################
